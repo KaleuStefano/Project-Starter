@@ -1,0 +1,21 @@
+{
+  "id": "photo",
+  "name": "Photo",
+  "order": 20,
+  "description": "RAW originals, edit files and delivery folders for photo work.",
+  "folders": [
+    "01-Assets",
+    "01-Assets/01-Doc",
+    "01-Assets/02-RAW",
+    "01-Assets/03-Reference",
+    "02-Project Files",
+    "02-Project Files/01-Lightroom",
+    "02-Project Files/02-PSDs",
+    "02-Project Files/_archive",
+    "03-Final Output",
+    "03-Final Output/01-Selects",
+    "03-Final Output/02-Web",
+    "03-Final Output/03-Print",
+    "03-Final Output/_archive"
+  ]
+}

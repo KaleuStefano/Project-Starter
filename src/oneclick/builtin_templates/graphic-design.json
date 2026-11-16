@@ -1,0 +1,22 @@
+{
+  "id": "graphic-design",
+  "name": "Graphic Design",
+  "order": 30,
+  "description": "Brief, imagery, vectors and fonts, with print and digital deliverables.",
+  "folders": [
+    "01-Assets",
+    "01-Assets/01-Brief & Docs",
+    "01-Assets/02-Images",
+    "01-Assets/03-Vector & Logos",
+    "01-Assets/04-Fonts",
+    "01-Assets/05-Reference",
+    "02-Project Files",
+    "02-Project Files/01-Working Files",
+    "02-Project Files/_archive",
+    "03-Final Output",
+    "03-Final Output/01-Print",
+    "03-Final Output/02-Digital",
+    "03-Final Output/03-Social",
+    "03-Final Output/_archive"
+  ]
+}

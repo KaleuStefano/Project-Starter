@@ -1,0 +1,23 @@
+{
+  "id": "web-dev",
+  "name": "Web / Dev",
+  "order": 50,
+  "description": "Design assets, a code folder and build output, with a starter README.",
+  "folders": [
+    "01-Assets",
+    "01-Assets/01-Doc",
+    "01-Assets/02-Design",
+    "01-Assets/03-Images",
+    "01-Assets/04-Fonts & Icons",
+    "02-Project Files",
+    "02-Project Files/01-Code",
+    "02-Project Files/_archive",
+    "03-Final Output",
+    "03-Final Output/01-Builds",
+    "03-Final Output/02-Deploy",
+    "03-Final Output/_archive"
+  ],
+  "files": {
+    "README.md": "# {{project_name}}\n\nCreated: {{date}}\n\n- Assets: `01-Assets`\n- Code and working files: `02-Project Files`\n- Builds and deliverables: `03-Final Output`\n"
+  }
+}

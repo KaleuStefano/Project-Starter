@@ -1,0 +1,18 @@
+{
+  "id": "motion-video",
+  "name": "Motion / Video",
+  "order": 10,
+  "description": "Assets by type, project files and final output (the original Project Starter structure).",
+  "folders": [
+    "01-Assets",
+    "01-Assets/01-Doc",
+    "01-Assets/02-Images & PSDs",
+    "01-Assets/03-Vector & Fonts",
+    "01-Assets/04-Footages",
+    "01-Assets/05-Audio",
+    "02-Project Files",
+    "02-Project Files/_archive",
+    "03-Final Output",
+    "03-Final Output/_archive"
+  ]
+}

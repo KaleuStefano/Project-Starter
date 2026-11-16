@@ -1,0 +1,24 @@
+{
+  "id": "3d",
+  "name": "3D",
+  "order": 40,
+  "description": "Models, textures and reference, with scenes, caches and renders kept apart.",
+  "folders": [
+    "01-Assets",
+    "01-Assets/01-Doc",
+    "01-Assets/02-Reference",
+    "01-Assets/03-Models",
+    "01-Assets/04-Textures & HDRIs",
+    "01-Assets/05-Footage",
+    "02-Project Files",
+    "02-Project Files/01-Scenes",
+    "02-Project Files/02-Cache & Sims",
+    "02-Project Files/03-Sculpt & Substance",
+    "02-Project Files/_archive",
+    "03-Final Output",
+    "03-Final Output/01-Renders",
+    "03-Final Output/02-Exports",
+    "03-Final Output/03-Previews",
+    "03-Final Output/_archive"
+  ]
+}
