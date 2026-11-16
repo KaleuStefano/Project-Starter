@@ -26,14 +26,16 @@ def _app_icon_file() -> Optional[Path]:
 
 def desktop_dir() -> Path:
     if sys.platform == "win32":
-        try:  # handles Desktops redirected to OneDrive
-            out = subprocess.run(
-                ["powershell", "-NoProfile", "-Command", "[Environment]::GetFolderPath('Desktop')"],
-                capture_output=True, text=True, timeout=15, check=True,
-            ).stdout.strip()
-            if out:
-                return Path(out)
-        except (OSError, subprocess.SubprocessError):
+        try:  # the registry knows about Desktops redirected to OneDrive; reading it is instant
+            import winreg
+
+            key_path = r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders"
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, key_path) as key:
+                value, _ = winreg.QueryValueEx(key, "Desktop")
+            expanded = os.path.expandvars(str(value))
+            if expanded:
+                return Path(expanded)
+        except OSError:
             pass
     return Path.home() / "Desktop"
 
