@@ -371,18 +371,23 @@ def _enable_dpi_awareness() -> None:
 
 
 def _center_and_raise(root: tk.Tk) -> None:
+    """Size the window, place it in the middle of the screen, then show it (no flash at the top-left)."""
     root.update_idletasks()
     width, height = max(root.winfo_reqwidth(), 580), max(root.winfo_reqheight(), 620)
-    root.geometry(f"{width}x{height}")
-    center_window(root)
+    x = max((root.winfo_screenwidth() - width) // 2, 0)
+    y = max((root.winfo_screenheight() - height) // 2, 0)
+    root.geometry(f"{width}x{height}+{x}+{y}")
+    root.deiconify()
     root.lift()
     root.attributes("-topmost", True)  # launched from a right-click menu: make sure it is seen
     root.after(300, lambda: root.attributes("-topmost", False))
+    root.after(50, lambda: root.geometry(f"+{x}+{y}"))  # some window managers move it after mapping; put it back
 
 
 def run_gui(initial_destination: Optional[str] = None, initial_name: str = "") -> int:
     _enable_dpi_awareness()
     root = tk.Tk()
+    root.withdraw()  # stay hidden until sized and centred
 
     def report(exc_type, exc, tb) -> None:  # Tk swallows callback errors by default
         log.error("Unhandled error in the window", exc_info=(exc_type, exc, tb))
