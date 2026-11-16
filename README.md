@@ -57,6 +57,10 @@ Only folders that match the pattern are counted, so unrelated folders never chan
 
 Text files in preset manifests can use `{{project_name}}`, `{{folder_name}}`, `{{number}}`, `{{year}}`, `{{date}}`.
 
+## Desktop shortcut
+
+*Settings → General → Add shortcut to Desktop*, or `python run.py --desktop-shortcut`. Launches the app with the Project Starter icon and no console window (Windows `.lnk`; macOS `.command` when run from source, or a link to the `.app`).
+
 ## Right-click menu
 
 *Settings → General → Add 'New project here'*, or `python run.py --install-context-menu` (`--uninstall-context-menu` removes it).

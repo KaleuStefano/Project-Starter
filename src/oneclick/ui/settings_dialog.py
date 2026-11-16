@@ -12,6 +12,7 @@ from typing import Callable, Optional
 from .. import APP_NAME, __version__
 from ..core.errors import OneClickError
 from ..core.naming import CASE_STYLES, COUNTER_SCOPES, TOKEN_HELP, NamingScheme, apply_case, render_folder_name
+from ..system import shortcut
 from ..system.context_menu import get_context_menu
 from ..system.opener import open_folder
 from ..system.paths import user_data_dir
@@ -386,6 +387,18 @@ class SettingsDialog:
         self.menu_remove_btn.pack(side="left", padx=(6, 0))
         self._refresh_menu_status(menu)
 
+        launch_box = ttk.LabelFrame(frame, text="Desktop shortcut", padding=10)
+        launch_box.pack(fill="x", pady=(16, 0))
+        self.shortcut_status = ttk.Label(launch_box, text="", wraplength=520, justify="left")
+        self.shortcut_status.pack(anchor="w")
+        launch_row = ttk.Frame(launch_box)
+        launch_row.pack(anchor="w", pady=(8, 0))
+        self.shortcut_add_btn = ttk.Button(launch_row, text="Add shortcut to Desktop", command=lambda: self._shortcut_action(True))
+        self.shortcut_add_btn.pack(side="left")
+        self.shortcut_remove_btn = ttk.Button(launch_row, text="Remove", command=lambda: self._shortcut_action(False))
+        self.shortcut_remove_btn.pack(side="left", padx=(6, 0))
+        self._refresh_shortcut_status()
+
         undo_box = ttk.LabelFrame(frame, text="Last project", padding=10)
         undo_box.pack(fill="x", pady=(16, 0))
         record = self.c.last_record()
@@ -400,6 +413,29 @@ class SettingsDialog:
         ttk.Button(about, text="Open settings & log folder", command=lambda: open_folder(user_data_dir())).pack(side="left")
         ttk.Label(about, text=f"{APP_NAME} {__version__}  ·  Created by Kal-Motion", style="Muted.TLabel").pack(side="right")
         return frame
+
+    def _refresh_shortcut_status(self) -> None:
+        try:
+            exists = shortcut.shortcut_exists()
+            where = shortcut.shortcut_path()
+        except Exception:
+            log.exception("Could not check the desktop shortcut")
+            self.shortcut_status.configure(text="Could not check the Desktop.")
+            return
+        self.shortcut_status.configure(text=(f"On your Desktop: {where.name}" if exists else "Launch the app with one click from your Desktop."))
+        self.shortcut_add_btn.state(["disabled"] if exists else ["!disabled"])
+        self.shortcut_remove_btn.state(["!disabled"] if exists else ["disabled"])
+
+    def _shortcut_action(self, add: bool) -> None:
+        try:
+            if add:
+                shortcut.create_desktop_shortcut()
+            else:
+                shortcut.remove_desktop_shortcut()
+        except Exception as problem:
+            log.exception("Desktop shortcut change failed")
+            messagebox.showerror(APP_NAME, f"Could not change the desktop shortcut:\n{problem}", parent=self.win)
+        self._refresh_shortcut_status()
 
     def _undo_last(self) -> None:
         record, problems = self.c.undo_info()

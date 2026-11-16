@@ -20,6 +20,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--name", metavar="TEXT", default="", help="Project name to pre-fill.")
     parser.add_argument("--install-context-menu", action="store_true", help="Add 'New project here' to the right-click menu.")
     parser.add_argument("--uninstall-context-menu", action="store_true", help="Remove it again.")
+    parser.add_argument("--desktop-shortcut", action="store_true", help="Create a Desktop shortcut that launches the app.")
     parser.add_argument("--version", action="version", version=f"{APP_NAME} {__version__}")
     return parser
 
@@ -65,6 +66,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return _context_menu_command(True)
     if args.uninstall_context_menu:
         return _context_menu_command(False)
+    if args.desktop_shortcut:
+        from .system.shortcut import create_desktop_shortcut
+
+        try:
+            _say(f"Shortcut created: {create_desktop_shortcut()}")
+            return 0
+        except Exception as problem:
+            log.exception("Desktop shortcut failed")
+            _say(f"Could not create the shortcut: {problem}")
+            return 1
     try:
         from .ui.main_window import run_gui
 
